@@ -1,6 +1,10 @@
+import { useState } from "react"
+
+
 
 export default function Home(){
-    const baseUrl = `http://www.omdbapi.com/?t=james-bond&apikey=`
+    const [search, setSearch] = useState()
+    const baseUrl = `http://www.omdbapi.com/?s=${search}&apikey=`
     const apiKey = '8f4ddb22'
 
     const getMovies = async()=>{
@@ -14,11 +18,20 @@ export default function Home(){
         }
     }
     
+    const handleChange = (e)=>{
+        setSearch(e.target.value)
+    }
+    
     return(
         <main>
             <h1>Forside</h1>
-            <button onClick={getMovies}>Hent filmer</button>
+            <form>
+                <label>
+                    Søk etter film
+                    <input type="search" placeholder="Indiana Jones" onChange={handleChange}></input>
+                </label>
+            </form>
+            <button onClick={getMovies}>Søk</button>
         </main>
-        
     )
 }
